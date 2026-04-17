@@ -23,7 +23,7 @@ from config import get_config
 from models.vit import SwinUnet
 from mean_teacher import losses, ramps
 from models.MTUNET import MTUNet
-from models.model import CSDC
+from models.model import FGMC
 
 
 from utils import mkdir_p
@@ -287,7 +287,7 @@ def main():
     print("==> creating model")
 
     def create_MyModel(args, ema=False):
-        model = CSDC(args)
+        model = FGMC(args)
         model = model.cuda()
 
         if ema:
@@ -326,15 +326,9 @@ def main():
         param.detach_()
 
     cudnn.benchmark = True
-    print('CSDCModel params: %.2fM' % (sum(p.numel() for p in model.parameters()) / 1000000.0))
+    print('FGMC Model params: %.2fM' % (sum(p.numel() for p in model.parameters()) / 1000000.0))
 
     criterion = nn.CrossEntropyLoss(weight=torch.FloatTensor([1.93, 8.06]).cuda())
-    #
-    # trainable_params = [{'params': list(filter(lambda p: p.requires_grad, CSDCModel.get_other_params()))},
-    #                     {'params': list(filter(lambda p: p.requires_grad, CSDCModel.get_backbone_params())),
-    #                      'lr': args.lr}]
-    #
-    # optimizer = optim.Adam(trainable_params, lr=args.lr)
 
     optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=0.0001)
     optimizer_mt = optim.Adam(mts_unet.parameters(), lr=args.lr, weight_decay=0.0001)
