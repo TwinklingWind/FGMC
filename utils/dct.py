@@ -9,7 +9,7 @@ def mydct(img):
     # b, g, r = cv2.split(img)
     # img = cv2.merge((r, g, b))
 
-    keep_fraction = 0.2
+    keep_fraction = 0.5
 
     h, w = img.shape[:2]
     keep_h = max(1, int(h * keep_fraction))
@@ -19,18 +19,11 @@ def mydct(img):
     img2 = img[:, :, 1]
     img3 = img[:, :, 2]
 
-
-
-
-    # 数据类型转换 转换为浮点型
-    # print('0\n', img)
     img1 = img1.astype(np.float32)
     img2 = img2.astype(np.float32)
     img3 = img3.astype(np.float32)
 
 
-
-    # 进行离散余弦变换
     img_dct1 = cv2.dct(img1)
     img_dct2 = cv2.dct(img2)
     img_dct3 = cv2.dct(img3)
@@ -54,13 +47,10 @@ def mydct(img):
     dct_mask3[:keep_h, keep_w:] = img_dct3[:keep_h, keep_w:] * 0.8
     dct_mask3[keep_h:, :] = img_dct3[keep_h:, :] * 0.8
 
-    # 进行离散余弦反变换
     img_idct1 = cv2.idct(dct_mask1)
     img_idct2 = cv2.idct(dct_mask2)
     img_idct3 = cv2.idct(dct_mask3)
-    # print('3\n', img_idct)
-    # res = img_idct.astype(np.uint8) # 浮点型转整型 小数部分截断
-    # print('3-1\n',res)
+
 
     nowimg = np.stack([img_idct1, img_idct2, img_idct3])
     nowimg = np.transpose(nowimg, (1, 2, 0))
