@@ -38,11 +38,11 @@ import torch.distributed as dist
 
 parser = argparse.ArgumentParser(description='PyTorch MixMatch Training')
 # Optimization options
-parser.add_argument('--epochs', default=1024, type=int, metavar='N',
+parser.add_argument('--epochs', default=3000, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                     help='manual epoch number (useful on restarts)')
-parser.add_argument('--batch-size', default=64, type=int, metavar='N',
+parser.add_argument('--batch-size', default=8, type=int, metavar='N',
                     help='train batchsize')
 # Checkpoints
 parser.add_argument('--resume', default='', type=str, metavar='PATH',
@@ -504,11 +504,11 @@ def train_MT(labeled_trainloader, unlabeled_trainloader, model, ema_model, mts_u
 
         loss_ce = ce_loss(outputs_mts, label_batch.long())
         loss_dice = dice_loss(outputs_mts, label_batch[:], softmax=True)
-        supervised_loss_mt = 0.75 * loss_ce + 0.25 * loss_dice
+        supervised_loss_mt = 0.5 * loss_ce + 0.5 * loss_dice
 
         loss_ce = ce_loss(outputs, label_batch.long())
         loss_dice = dice_loss(outputs, label_batch[:], softmax=True)
-        supervised_loss = 0.75 * loss_ce + 0.25 * loss_dice
+        supervised_loss = 0.5 * loss_ce + 0.5 * loss_dice
 
         sup_loss = supervised_loss_mt + supervised_loss
 
