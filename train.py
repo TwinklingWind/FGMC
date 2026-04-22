@@ -115,7 +115,7 @@ parser.add_argument('--out-dim', default=128, type=float, help='momentum')
 parser.add_argument('--in_dim', default=96, type=float, help='momentum')
 
 parser.add_argument('--temp', default=0.1, type=float, help='momentum')
-parser.add_argument('--epoch_semi', default=100, type=int, help='momentum')
+parser.add_argument('--epoch_semi', default=0, type=int, help='momentum')
 parser.add_argument('--select_num', default=2000, type=int, help='momentum')
 parser.add_argument('--seed', default=3407, type=int, help='momentum')
 
