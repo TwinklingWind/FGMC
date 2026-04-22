@@ -186,7 +186,7 @@ def main():
         mean = [22, 47, 82]
     elif args.kvasir:
         mean = [60, 82, 142]
-    elif args.clinic:
+    elif args.la:
         mean = [46.9, 68.8, 102.1]
     else:
         mean = [140, 150, 180]
@@ -195,7 +195,7 @@ def main():
         std = [22, 47, 82]
     elif args.kvasir:
         std = [9.34, 8.31, 8.53]
-    elif args.clinic:
+    elif args.la:
         std = [7.41, 8.39, 11.3]
     else:
         std = [16.1, 14.75, 15.33]
@@ -375,7 +375,7 @@ def main():
 
     for epoch in tqdm(range(0, args.epochs)):
         # test
-        if epoch != 0 and epoch % 5 == 0:
+        if epoch != 0 and epoch % 10 == 0:
             val_loss, val_result = multi_validate(val_loader, model, criterion, use_cuda, args)
             test_loss, val_ema_result = multi_validate(val_loader, ema_model, criterion, use_cuda, args)
             #mts_loss, val_mts_result = multi_validate_mt(val_loader, mts_unet, criterion, use_cuda, args)
