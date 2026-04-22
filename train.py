@@ -97,7 +97,7 @@ parser.add_argument('--consistency', type=float, default=10.0, help='consistency
 parser.add_argument('--consistency_rampup', type=float, default=400.0, help='consistency_rampup')
 
 #
-parser.add_argument('--initial-lr', default=0.0, type=float,
+parser.add_argument('--initial-lr', default=0.0001, type=float,
                     metavar='LR', help='initial learning rate when using linear rampup')
 parser.add_argument('--lr-rampup', default=0, type=int, metavar='EPOCHS',
                     help='length of learning rate rampup in the beginning')
@@ -105,7 +105,7 @@ parser.add_argument('--lr-rampdown-epochs', default=None, type=int, metavar='EPO
                     help='length of learning rate cosine rampdown (>= length of training)')
 parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
                     help='momentum')
-parser.add_argument('--base-lr', default=0.001, type=float,
+parser.add_argument('--base-lr', default=0.0001, type=float,
                     metavar='LR', help='initial learning rate when using linear rampup')
 
 
